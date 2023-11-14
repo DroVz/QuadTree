@@ -1,4 +1,4 @@
-
+from src import QuadTreeElementException
 import sys, os
 sys.path.append(os.path.realpath(os.path.dirname(__file__)+"/.."))
 
@@ -15,10 +15,18 @@ def test_single():
     assert q.depth == 1
 
 def test_file_right_num_elem():
-    pass
+    try:
+        filename = "files/quadtree_element_error.txt"
+        q = QuadTree.fromFile(filename)
+    except QuadTreeElementException:
+        assert True
 
 def test_file_not_found():
-    pass
+    try:
+        filename = "files/quadtree_not_found.txt"
+        q = QuadTree.fromFile(filename)
+    except FileNotFoundError:
+        assert True
 
 def test_tkquadtree_sample():
     filename = "files/quadtree.txt"
@@ -29,3 +37,17 @@ def test_tkquadtree_single():
     filename = "files/quadtree_easy.txt"
     tkquadtree = TkQuadTree.fromFile(filename)
     assert tkquadtree.depth == 1
+
+def test_tkquadtree_file_right_num_elem():
+    try:
+        filename = "files/quadtree_element_error.txt"
+        tkquadtree = TkQuadTree.fromFile(filename)
+    except QuadTreeElementException:
+        assert True
+
+def test_tkquadtree_file_not_found():
+    try:
+        filename = "files/quadtree_not_found.txt"
+        tkquadtree = TkQuadTree.fromFile(filename)
+    except FileNotFoundError:
+        assert True

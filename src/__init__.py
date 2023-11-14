@@ -1,1 +1,1 @@
-from .quadtree import QuadTree, TkQuadTree
+from .quadtree import QuadTree, TkQuadTree, QuadTreeElementException

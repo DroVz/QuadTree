@@ -4,11 +4,10 @@ class QuadTree:
     NB_NODES : int = 4
     def __init__(self, hg: bool | QuadTree, hd: bool | QuadTree, bd: bool | QuadTree,bg: bool | QuadTree):
         """
-        TODO : com
-        :param hg: 
-        :param hd:
-        :param bd:
-        :param bg:
+        :param hg: QuadTree or boolean to define upper left part
+        :param hd: QuadTree or boolean to define upper right part
+        :param bd: QuadTree or boolean to define bottom right part
+        :param bg: QuadTree or boolean to define bottom left part
         """
         self.hg = hg
         self.hd = hd
@@ -21,10 +20,9 @@ class QuadTree:
         Recursion depth of the quadtree
         :return: Depth of the quadtree
         """
-        ROOT_DEPTH = 1
-        return self.__find_deepest_depth(ROOT_DEPTH)
+        return self.__find_deepest_depth()
 
-    def __find_deepest_depth(self, root_depth : int) :
+    def __find_deepest_depth(self, root_depth : int = 1) :
         """
         :param root_depth:  Depth of the root
         :return: The deepest depth of the quadtree
@@ -58,7 +56,6 @@ class QuadTree:
         :return: Quadtree make by a list
         """
         quadtree_branch = []
-
         if len(data) == QuadTree.NB_NODES :
             for element in data:
                 if isinstance(element, list):
@@ -66,11 +63,14 @@ class QuadTree:
                 else:
                     quadtree_branch.append(element)
         else :
-            raise Exception("the list does not contain the right number of elements")
+            raise QuadTreeElementException
 
         return QuadTree(quadtree_branch[0], quadtree_branch[1], quadtree_branch[2], quadtree_branch[3])
 
 class TkQuadTree(QuadTree):
+    """
+    Graphic representation of QuadTree
+    """
     X_POSITION = 0
     Y_POSITION = 0
     WIDTH_OF_SQUARE = 700
@@ -94,7 +94,6 @@ class TkQuadTree(QuadTree):
         tkquadtree_property_list = [self.hg, self.hd, self.bd, self.bg]
         width_of_square = int(actual_width/2)
         index_to_select_corner = 0
-        #TODO : make iterator class
         corner_position_list = [position, [position[0] + width_of_square, position[1]],
                                 [position[0] + width_of_square, position[1] + width_of_square],
                                 [position[0], position[1] + width_of_square]]
@@ -143,6 +142,13 @@ class TkQuadTree(QuadTree):
                 else:
                     tkquadtree_branch.append(element)
         else:
-            raise Exception("the list does not contain the right number of elements")
+            raise QuadTreeElementException
 
         return TkQuadTree(tkquadtree_branch[0], tkquadtree_branch[1], tkquadtree_branch[2], tkquadtree_branch[3])
+
+class QuadTreeElementException(Exception):
+    """
+    Exception for QuadTree to report a bad number of elements in list to convert
+    """
+    def __str__(self):
+        print("The list you're trying to convert doesn't contain the right number of elements")

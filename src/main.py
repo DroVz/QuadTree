@@ -1,8 +1,11 @@
 import pygame
 from src import TkQuadTree
 
+WIDTH_SCREEN = 1080
+HEIGHT_SCREEN = 720
+
 pygame.init()
-screen = pygame.display.set_mode((1080, 720))
+screen = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN))
 clock = pygame.time.Clock()
 running = True
 
@@ -16,6 +19,5 @@ while running :
             running = False
     screen.fill("white")
     quadTree_to_paint.paint(screen)
-    print("TEST")
     pygame.display.flip()
     clock.tick(60)
