@@ -12,9 +12,9 @@ Utilisation de pygame pour l'affichage du QuadTree
 
 ### RUN
 Affichage du QuadTree :
-'''
+```shell
 python src/main.py
-'''
+```
 
 Les tests unitaires :
 ```shell
