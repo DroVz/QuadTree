@@ -10,6 +10,12 @@ et de côté 2^n.
 ## Technologie 
 Utilisation de pygame pour l'affichage du QuadTree
 
+### Install
+Clonner le dépôt.
+Installation des dépendances du fichier requirements :
+```shell
+pip install -r requirements.txt
+```
 ### RUN
 Affichage du QuadTree :
 ```shell
