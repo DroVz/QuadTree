@@ -9,8 +9,9 @@ screen = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN))
 clock = pygame.time.Clock()
 running = True
 
-filename = "files/quadtree.txt"
+filename = "files/quadtree_extra_color.txt"
 quadTree_to_paint = TkQuadTree.fromFile(filename)
+
 
 while running :
 

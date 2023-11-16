@@ -1,13 +1,15 @@
 from __future__ import annotations
 import pygame
+from pygame import Color
+
 class QuadTree:
     NB_NODES : int = 4
-    def __init__(self, hg: bool | QuadTree, hd: bool | QuadTree, bd: bool | QuadTree,bg: bool | QuadTree):
+    def __init__(self, hg: Color | QuadTree, hd: Color | QuadTree, bd: Color | QuadTree, bg: Color | QuadTree):
         """
-        :param hg: QuadTree or boolean to define upper left part
-        :param hd: QuadTree or boolean to define upper right part
-        :param bd: QuadTree or boolean to define bottom right part
-        :param bg: QuadTree or boolean to define bottom left part
+        :param hg: QuadTree or list[int] to define upper left part
+        :param hd: QuadTree or list[int] to define upper right part
+        :param bd: QuadTree or list[int] to define bottom right part
+        :param bg: QuadTree or list[int] to define bottom left part
         """
         self.hg = hg
         self.hd = hd
@@ -61,7 +63,7 @@ class QuadTree:
                 if isinstance(element, list):
                     quadtree_branch.append(QuadTree.fromList(element))
                 else:
-                    quadtree_branch.append(element)
+                    quadtree_branch.append(Color(*element))
         else :
             raise QuadTreeElementException
 
@@ -104,15 +106,12 @@ class TkQuadTree(QuadTree):
                                  [corner_position_list[index_to_select_corner][0], corner_position_list[index_to_select_corner][1], width_of_square,
                                   width_of_square], 2)
                 tkquadtree_property.paint_square(screen, corner_position_list[index_to_select_corner], width_of_square)
-            elif isinstance(tkquadtree_property, int) :
+            elif isinstance(tkquadtree_property, Color) :
                 if tkquadtree_property :
-                    pygame.draw.rect(screen, "black",
+                    pygame.draw.rect(screen, tkquadtree_property,
                                      [int(corner_position_list[index_to_select_corner][0]), int(corner_position_list[index_to_select_corner][1]), width_of_square,
                                       width_of_square], width_of_square)
-                else :
-                    pygame.draw.rect(screen, "black",
-                                     [int(corner_position_list[index_to_select_corner][0]), int(corner_position_list[index_to_select_corner][1]), width_of_square,
-                                      width_of_square], 2)
+
             index_to_select_corner += 1
 
     @staticmethod
@@ -140,7 +139,7 @@ class TkQuadTree(QuadTree):
                 if isinstance(element, list):
                     tkquadtree_branch.append(TkQuadTree.fromList(element))
                 else:
-                    tkquadtree_branch.append(element)
+                    tkquadtree_branch.append(Color(*element))
         else:
             raise QuadTreeElementException
 

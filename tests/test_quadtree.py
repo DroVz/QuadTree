@@ -51,3 +51,13 @@ def test_tkquadtree_file_not_found():
         tkquadtree = TkQuadTree.fromFile(filename)
     except FileNotFoundError:
         assert True
+
+def test_color_quadtree():
+    filename = "files/quadtree_color"
+    q = QuadTree.fromFile(filename)
+    assert q.depth == 1
+
+def test_color_large_quadtree():
+    filename = "files/quadtree_extra_color.txt"
+    q = QuadTree.fromFile(filename)
+    assert q.depth == 3
